@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Track index{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col">
+            <h1 class="mt-2 mb-3">Tracks</h1>
+        </div>
+        <div class="col-auto mt-3">
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-primary" href="{{ path('app_track_new') }}">Create new</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col">
+        <ul class="list-unstyled">
+            {% for track in tracks %}
+                <div class="track-list">
+                    <li class="row">
+                        <div class="row py-2 p-0 d-flex align-items-center">
+                            <div class="col px-4 d-flex align-items-center">
+                                <img src="{{ track.release.thumbnailurl }}" alt="" class="rounded" style="height: 2rem;">
+                            </div>
+                            <div class="col px-4 d-flex align-items-center">
+                                {{ track.title }}
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                {{ track.release.title }}
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                {{ track.readableDuration }} minutes
+                            </div>
+                            <div class="col-auto">
+                                {# <a class="btn btn-primary" href="{{ path('app_track_show', {'id': track.id}) }}">show</a> #}
+                                {% if is_granted('ROLE_USER') %}
+                                    <a class="btn btn-primary" href="{{ path('app_track_edit', {'id': track.id}) }}">edit</a>
+                                {% endif %}
+                            </div>
+                            <div class="col-auto p-0 ">
+                                {{ include('track/_delete_form.html.twig') }}
+                            </div>
+                        </div> 
+                    </li>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    There is no tracks yet in your library
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

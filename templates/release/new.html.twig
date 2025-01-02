@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Release{% endblock %}
+
+{% block body %}
+    <h1>Create new Release</h1>
+
+    {{ include('release/_form.html.twig') }}
+    <button type="submit" form="release-form" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    {# <button class="btn btn-primary">{{ button_label|default('Save') }}</button> #}
+
+    <a class="btn btn-secondary" href="{{ path('app_release_index') }}">back to list</a>
+{% endblock %}

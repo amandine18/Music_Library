@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Release{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row my-3 mt-5 mb-3">
+            <div class="col-8 col-sm-4 col-md-3 mx-auto">
+                <div class="ratio ratio-1x1">
+                    <img src="{{ release.thumbnailUrl }}" alt="" class="object-fit-cover img-fluid rounded-4">
+                </div>
+                <div class="mt-2">
+                    {{ release.readableType }}
+                </div>
+                <div>
+                    {{ release.tracks |length }}
+                    track{{ release.tracks | length > 1 ? 's':'' }}
+                </div>
+                <div>
+                    Total duration : {{ release.readableDuration }}
+                </div>
+                <div class="col-auto mt-2">
+                    <a class="btn btn-secondary" href="{{ path('app_release_new_track', {'id': release.id}) }}">Add track</a>
+                </div>
+            </div>
+            <div class="col">
+                <h1 class="mb-3">
+                    {{ release.title }} 
+                    <small class="text-secondary"> - {{ release.releasedAt ? release.releasedAt|date('d/m/Y') : '' }}</small>
+                </h1>
+
+                <ul class="list-unstyled">
+                    {% for track in release.tracks %}
+                    <div class="track-list">
+                        <li class="row pt-1 pb-1">
+                            <div class="row">
+                                <div class="col">
+                                    {{ track.title }}
+                                </div>
+                                <div class="col-auto p-0">
+                                    {{ track.readableDuration }}
+                                </div>
+                            </div> 
+                        </li>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {# <a class="btn btn-secondary" href="{{ path('app_release_index') }}">back to list</a>
+        <a class="btn btn-primary" href="{{ path('app_release_edit', {'id': release.id}) }}">edit</a>
+
+        {{ include('release/_delete_form.html.twig') }} #}
+
+        <div class="row gx-1 justify-content-center justify-content-md-start">
+            <div class="col-auto">
+                <a class="btn btn-secondary" href="{{ path('app_artist_show', {'id': release.artist.id}) }}">back to artist</a>
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-secondary" href="{{ path('app_release_index') }}">back to release list</a>
+            </div>
+            <div class="col-auto">
+                {% if is_granted('ROLE_USER') %}
+                    <a class="btn btn-primary" href="{{ path('app_release_edit', {'id': release.id}) }}">edit</a>
+                {% endif %}
+            </div>
+            <div class="col-auto">
+                {{ include('release/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

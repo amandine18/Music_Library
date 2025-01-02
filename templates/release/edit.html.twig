@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Release{% endblock %}
+
+{% block body %}
+    <h1>Edit Release</h1>
+
+    {{ include('release/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {# <a href="{{ path('app_release_index') }}">back to list</a>
+
+    {{ include('release/_delete_form.html.twig') }} #}
+
+    <div class="row">
+        <div class="col-auto">
+            <button type="submit" form="release-form" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('app_release_show', {id: release.id}) }}">back to release</a>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('app_release_index') }}">back to release list</a>
+        </div>
+        <div class="col-auto">
+            {{ include('release/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Track{% endblock %}
+
+{% block body %}
+    <h1>Create new Track</h1>
+
+    {{ include('track/_form.html.twig') }}
+
+    <button type="submit" form="track-form" class="btn btn-primary">{{ button_label|default('Create') }}</button>
+
+    <a class="btn btn-secondary" href="{{ path('app_track_index') }}">back to track list</a>
+{% endblock %}

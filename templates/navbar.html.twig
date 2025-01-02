@@ -1,0 +1,27 @@
+{% import "component.html.twig" as component %}
+{% set route_name = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('app_home') }}">Music Library</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {{ component.nav_item('Artists', path('app_artist_index'), route_name, 'app_artist')}}
+            {{ component.nav_item('Releases', path('app_release_index'), route_name, 'app_release')}}
+            {{ component.nav_item('Tracks', path('app_track_index'), route_name, 'app_track')}}
+            </ul>
+            <ul class="navbar-nav">
+                {% if is_granted('ROLE_USER') %}
+                    {{ component.nav_item(app.user.firstname ~ ' ' ~ app.user.lastname, '#')}}
+                    {{ component.nav_item('Logout', path('app_logout'))}}
+                {% else %}
+                    {{ component.nav_item('Login', path('app_login'))}}
+                    {{ component.nav_item('Register', path('app_register'))}}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

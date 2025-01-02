@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% import "component.html.twig" as component %}
+
+{% block title %}Artist index{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1 class="mt-2 mb-3">Artists</h1>
+        </div>
+        <div class="col-auto mt-3">
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-primary" href="{{ path('app_artist_new') }}">Create new</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for artist in artists %}
+            <div class="col-sm-6 col-md-3 col-lg-4 col-xl-2">
+                {{ component.card(artist.name, artist.thumbnailurl, artist.name ~ ' profile picture', path('app_artist_show', {'id': artist.id})) }}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                There is no artists yet in your library
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

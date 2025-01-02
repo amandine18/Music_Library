@@ -1,0 +1,11 @@
+{{ form_start(form, { attr: {id: 'artist-form'}}) }}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.name) }}  
+        </div>
+        <div class="col">
+            {{ form_row(form.thumbnailurl) }}  
+        </div>
+    </div>
+    {{ form_widget(form) }}
+{{ form_end(form) }}

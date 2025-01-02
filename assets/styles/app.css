@@ -1,3 +1,14 @@
 body {
     background-color: skyblue;
 }
+
+.track-list > li:nth-child(odd){
+    background-color: var(--bs-secondary-bg-subtle);
+    margin: 0;
+    border-radius: 0.5rem;
+}
+
+.nav-link.active{
+    background-color: var(--bs-secondary-bg-subtle);
+    border-radius: .5rem;
+}

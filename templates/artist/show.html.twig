@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% import "component.html.twig" as component %}
+
+{% block title %}Artist{% endblock %}
+
+{% block body %}
+    
+    <div class="row my-3">
+        <div class="col-8 col-md-3 mx-auto">
+            <div class="ratio ratio-1x1">
+                <img src="{{ artist.thumbnailurl }}" alt="{{ artist.name }} profile picture" class="object-fit-cover img-fluid rounded-4">
+            </div>
+        </div>
+        <div class="col-12 col-md">
+            <h1 class="text-center text-md-start">{{ artist.name }}</h1>
+            <p>{{ artist.releases | length }} release{{ artist.releases | length >1 ? 's':''}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for release in artist.releases %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+            {{ component.card(release.title, release.thumbnailurl, null, path('app_release_show', {'id': release.id}), (release.releasedAt | date('d/m/Y')), release.readableType) }}
+                {# <div class="card">
+                    <div class="ratio ratio-1x1">
+                        <img src="{{ release.thumbnailurl }}" alt="" class="card-img-top object-fit-cover">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ release.title }}</h5>
+                        <p class="text-secondary">{{ release.releasedAt | date('d/m/Y')}}</p>
+                        <a class="btn btn-primary" href="{{ path('app_release_show', {'id': release.id}) }}">Show</a>
+                    </div>
+                </div> #}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row gx-1 justify-content-center justify-content-md-start mt-3 mb-3">
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('app_artist_index') }}">back to artist list</a>
+        </div>
+        <div class="col-auto">
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-primary" href="{{ path('app_artist_edit', {'id': artist.id}) }}">edit</a>
+            {% endif %}
+        </div>
+        <div class="col-auto">
+            {{ include('artist/_delete_form.html.twig') }}
+        </div>
+    </div>
+    
+{% endblock %}
